@@ -1,0 +1,168 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.withbg-jon-mobile {
+  background: url(/Images/bg.jpg) no-repeat;
+  background-size: cover;
+}
+
+.withbg-jon {
+  background: url(/Images/bg.jpg) no-repeat center center fixed;
+  background-size: cover;
+  background-color: #b2afab;
+  background-position: center center;
+  min-height: 100vh;
+  max-height: 999px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-dashboard {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.site-layout .site-layout-background {
+  background: #fff;
+}
+[data-theme="dark"] .site-layout .site-layout-background {
+  background: #141414;
+}
+.cluster-marker {
+  color: #fff;
+  background: #1978c8;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.crime-marker {
+  background: none;
+  border: none;
+}
+
+.crime-marker img {
+  width: 25px;
+}
+
+.logo {
+  float: left;
+  height: 31px;
+  margin: 16px 24px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.ant-layout-content {
+  min-height: calc(100vh - 138px);
+}
+
+/* .ant-pagination-options {
+  display: none;
+} */
+
+.logoCrypto {
+  margin: 0 20px;
+}
+
+.logoCryptoMobile {
+  margin: 0 10px;
+}
+
+.hideScrollBar::-webkit-scrollbar {
+  display: none;
+}
+
+.hideScrollBar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* width */
+.niceScrollbar::-webkit-scrollbar {
+  width: 3px;
+  height: 8px;
+  margin-top: 5px;
+}
+
+/* Track */
+.niceScrollbar::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+/* Handle */
+.niceScrollbar::-webkit-scrollbar-thumb {
+  background: #33539e;
+}
+
+/* Handle on hover */
+.niceScrollbar::-webkit-scrollbar-thumb:hover {
+  background: #33539e;
+}
+
+.ant-layout-sider {
+  background: #3e4c5f;
+}
+
+.ant-layout-sider-trigger {
+  background: #576679;
+}
+
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #727c9e;
+}
+
+/* .ant-menu.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub,
+.ant-menu.ant-menu-dark .ant-menu-sub {
+  background: #3e4c5f;
+} */
+
+.ant-modal-content {
+  border-radius: 15px;
+}
+
+.fc-button {
+  font-size: 14px; /* Adjust font size */
+  padding: 5px 10px; /* Adjust padding for button size */
+  height: auto; /* Ensure height adjusts with content */
+}
+
+/* Optional: Style specific buttons if needed */
+.fc-prev-button, .fc-next-button, .fc-today-button {
+  font-size: 16px; /* Larger font size for navigation buttons */
+}
+
+/* Adjust button size based on screen size */
+@media (max-width: 768px) {
+  .fc-button {
+    font-size: 12px !important; /* Smaller font size on smaller screens */
+    padding: 2px 4px !important; /* Smaller padding on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .mini-calendar {
+    display: none;
+  }
+}

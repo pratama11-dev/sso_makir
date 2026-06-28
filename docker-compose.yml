@@ -1,0 +1,17 @@
+---
+version: "3.1"
+
+services:
+  whrmweb:
+    build: "./"
+    image: artifachere:latest
+    container_name: ""
+    hostname: ""
+    command: sh -c "env | grep -E '^[A-Za-z_]+=' > .env && git pull && pnpm i && pnpm build && pnpm start"
+    ports:
+      - target: 3343
+        published: 3343
+        protocol: tcp
+    env_file:
+      - ./.env
+    restart: always
