@@ -5,6 +5,9 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Sessions } from "types/Session";
 import useFetcher from "./useFetcher";
+import type { NextApiRequest, NextApiResponse } from "next";
+import Cookies from "js-cookie";
+import { serialize } from "v8";
 
 const useAuth = (session?: Sessions) => {
   const [isLoading, setLoading] = useState({
@@ -96,9 +99,11 @@ const useAuth = (session?: Sessions) => {
     setError("");
     setLoading((prev) => ({ ...prev, logout: true }));
     try {
-      const logout = await FetcherGet({ url: "/public/v1/logout", api: "CUSTOM" });
+      const logout = await FetcherGet({ url: "/api/logout", api: "CUSTOM" });
       if (logout?.data?.code === 0) {
         window.localStorage.clear();
+        window.sessionStorage.clear();
+
         ReplaceNavigateTo("/login?code=1");
         return true;
       }

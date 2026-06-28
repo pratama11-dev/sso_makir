@@ -155,11 +155,7 @@ export async function getSessionFromHeader(req: NextApiRequest | any) {
     token = req.headers?.authorization ?? "";
     let getTokenFromHeader = true;
 
-    console.log("req.headers.cookie =", req.headers.cookie);
-
     const tokenfromcookie = getCookie("sso-makir", req);
-
-    console.log("tokenfromcookie =", tokenfromcookie);
 
     if (token === "") {
       token = tokenfromcookie;
@@ -173,7 +169,6 @@ export async function getSessionFromHeader(req: NextApiRequest | any) {
         if (getTokenFromHeader) {
           bearer = token.substring(7);
         }
-        console.log("bearer =", bearer);
 
         const user = await axios.get(`${API_ENDPOINT.API}/api/get-session`, {
           headers: {

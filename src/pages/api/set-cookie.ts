@@ -35,6 +35,16 @@ export default async function handler(
     const SameSite = "SameSite=Strict;";
     // const cookies = data + expires + path + domain + httpOnly + SameSite;
     const cookies = data + expires + path + httpOnly + SameSite;
+
+    // const cookies = [
+    //   `sso-makir=${token}`,
+    //   `Expires=${now.toUTCString()}`,
+    //   "Path=/",
+    //   "HttpOnly",
+    //   "SameSite=Strict",
+    //   // "Secure", // aktifkan jika HTTPS
+    // ].join("; ");
+
     res.setHeader("Set-Cookie", cookies);
     return res.status(200).json({
       code: 0,

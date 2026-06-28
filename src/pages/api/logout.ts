@@ -11,9 +11,9 @@ const buildLogoutCookies = (key: string, val: string) => {
   const path = "path=/;";
   const httpOnly = "httpOnly;";
   const SameSite = "SameSite=Strict;";
-  const domain = `domain=${process.env.NEXT_PUBLIC_DOMAIN};`;
+  // const domain = `domain=${process.env.NEXT_PUBLIC_DOMAIN};`;
 
-  return data + expires + path + domain + httpOnly + SameSite;
+  return data + expires + path + httpOnly + SameSite;
 };
 
 export default async function handler(
@@ -21,7 +21,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST" || req.method === "GET") {
-    const cookiesData = [buildLogoutCookies("formula", "")];
+    const cookiesData = [buildLogoutCookies("sso-makir", "")];
 
     try {
       res.setHeader("Set-Cookie", cookiesData);
