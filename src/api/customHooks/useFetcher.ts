@@ -64,7 +64,7 @@ const useFetcher = (sessions?: Sessions) => {
           'X-App-Key': process.env.NEXT_PUBLIC_APPKEY,
           Authorization: `Bearer ${sessions?.token || ""}`,
         },
-        withCredentials: true,
+        // withCredentials: true,
       });
 
       return response;
@@ -114,7 +114,7 @@ const useFetcher = (sessions?: Sessions) => {
           'X-App-Key': process.env.NEXT_PUBLIC_APPKEY,
           Authorization: `Bearer ${sessions?.token || ""}`,
         },
-        withCredentials: true,
+        // withCredentials: true,
       });
 
       return response;

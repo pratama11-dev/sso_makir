@@ -23,17 +23,18 @@ export default async function handler(
     time += 3600 * 1000 * 24;
     now.setTime(time);
 
-    const data = `${"makir"}=${token};`;
+    const data = `${"sso-makir"}=${token};`;
     const expires = `expires=${now.toUTCString()};`;
     const path = "path=/;";
-    const domain = `domain=${
-      isDev
-        ? process.env.NEXT_PUBLIC_DOMAIN_DEV
-        : process.env.NEXT_PUBLIC_DOMAIN
-    };`;
+    // const domain = `domain=${
+    //   isDev
+    //     ? process.env.NEXT_PUBLIC_DOMAIN_DEV
+    //     : process.env.NEXT_PUBLIC_DOMAIN
+    // };`;
     const httpOnly = "httpOnly;";
     const SameSite = "SameSite=Strict;";
-    const cookies = data + expires + path + domain + httpOnly + SameSite;
+    // const cookies = data + expires + path + domain + httpOnly + SameSite;
+    const cookies = data + expires + path + httpOnly + SameSite;
     res.setHeader("Set-Cookie", cookies);
     return res.status(200).json({
       code: 0,

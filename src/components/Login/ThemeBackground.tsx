@@ -73,7 +73,7 @@ function ThemeBackground() {
               fontSize: isTablet ? "19px" : "30px",
             }}
           >
-            MAKIR
+            SSO MAKIR
           </h1>
         </span>
       </div>

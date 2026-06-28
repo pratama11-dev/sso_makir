@@ -109,18 +109,34 @@ export function rejectNull(str: any, label: string, res: NextApiResponse) {
 
 const getCookieFromBrowser = (key: string) => cookie.get(key);
 
-const getCookieFromServer = (key: string, req: NextApiRequest) => {
-  if (!req.headers.cookie) {
-    return undefined;
-  }
+// const getCookieFromServer = (key: string, req: NextApiRequest) => {
+//   if (!req.headers.cookie) {
+//     return undefined;
+//   }
 
-  const rawCookie = req.headers.cookie
+//   const rawCookie = req.headers.cookie
+//     .split(";")
+//     .find((c) => c.trim().startsWith(`${key}=`));
+//   if (!rawCookie) {
+//     return undefined;
+//   }
+//   return rawCookie.split("=")[1];
+// };
+
+const getCookieFromServer = (key: string, req: NextApiRequest) => {
+  const cookies = req.headers.cookie;
+
+  if (!cookies) return undefined;
+
+  const parsed = cookies
     .split(";")
-    .find((c) => c.trim().startsWith(`${key}=`));
-  if (!rawCookie) {
-    return undefined;
-  }
-  return rawCookie.split("=")[1];
+    .map((c) => c.trim());
+
+  const found = parsed.find((c) => c.startsWith(`${key}=`));
+
+  if (!found) return undefined;
+
+  return decodeURIComponent(found.substring(key.length + 1));
 };
 
 export const getCookie = (key: string, req: NextApiRequest) => (process.browser ? getCookieFromBrowser(key) : getCookieFromServer(key, req));
@@ -139,7 +155,12 @@ export async function getSessionFromHeader(req: NextApiRequest | any) {
     token = req.headers?.authorization ?? "";
     let getTokenFromHeader = true;
 
-    const tokenfromcookie = getCookie("makir", req);
+    console.log("req.headers.cookie =", req.headers.cookie);
+
+    const tokenfromcookie = getCookie("sso-makir", req);
+
+    console.log("tokenfromcookie =", tokenfromcookie);
+
     if (token === "") {
       token = tokenfromcookie;
       getTokenFromHeader = false;
@@ -148,10 +169,13 @@ export async function getSessionFromHeader(req: NextApiRequest | any) {
     if (token !== "") {
       if (token?.length > 7 || false) {
         let bearer = token;
+
         if (getTokenFromHeader) {
           bearer = token.substring(7);
         }
-        const user = await axios.get(`${API_ENDPOINT.SSO}/api/get-session`, {
+        console.log("bearer =", bearer);
+
+        const user = await axios.get(`${API_ENDPOINT.API}/api/get-session`, {
           headers: {
             Authorization: `Bearer ${bearer}`,
           },
@@ -188,11 +212,18 @@ export async function getSessionFromHeader(req: NextApiRequest | any) {
         token,
       },
     };
-  } catch (error) {
-    return {
-      code: 4,
-      info: "Error from try-Catch",
-      data: error,
-    };
+    // } catch (error) {
+    //   return {
+    //     code: 4,
+    //     info: "Error from try-Catch",
+    //     data: error,
+    //   };
+    // }
+  } catch (error: any) {
+    console.error("message:", error.message);
+    console.error("status:", error.response?.status);
+    console.error("data:", error.response?.data);
+
+    throw error;
   }
 }

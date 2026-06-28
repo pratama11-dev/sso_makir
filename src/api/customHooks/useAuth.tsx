@@ -73,7 +73,7 @@ const useAuth = (session?: Sessions) => {
       });
       if (setCookie.status === 200) {
         window.localStorage.setItem(
-          "pg-sso-rt",
+          "sso-makir",
           accessToken?.data?.refreshToken
         );
         message
@@ -115,7 +115,7 @@ const useAuth = (session?: Sessions) => {
 
   const tryRestoreSessionUseRefreshToken = async () => {
     // get refresh token
-    const refreshToken = window.localStorage.getItem("pg-sso-rt");
+    const refreshToken = window.localStorage.getItem("sso-makir");
     if (!refreshToken) {
       return false;
     }
