@@ -1,16 +1,16 @@
 import { IDefaultApi, IDefaultApiExclude, IDefaultApiMinimum } from "types/api/params";
 import useQueryHooks from "../customHooks/useQueryHooks";
-import { IUser } from "types/users";
+import { IApplication } from "types/apps";
 
-export const useUserQuery = (
+export const useAppQuery = (
   data: IDefaultApi
 ) => {
   const { enabled } = data;
 
-  return useQueryHooks(data).config<IUser[], any>({
+  return useQueryHooks(data).config<IApplication[], any>({
     data: ["pagination", "search"],
-    api: "/api/users/list",
-    key: "useUserQuery",
+    api: "/api/apps",
+    key: "useAppQuery",
     method: "POST",
     config: {
       enabled: enabled ?? true,

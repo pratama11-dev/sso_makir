@@ -64,7 +64,7 @@ function HeaderOur({ session, toggleDrawer }: HeaderProps) {
           <Row>
             <Col xs={14} sm={14} md={14} lg={14} >
               <h3 style={{ paddingLeft: 10, lineHeight: "25px", color: !isMobile ? "#000" : "#fff" }}>
-                MAKIR
+                SSO MAKIR
               </h3>
             </Col>
             <Col xs={10} sm={10} md={10} lg={10} >
