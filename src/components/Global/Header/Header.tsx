@@ -85,7 +85,7 @@ function HeaderOur({ session, toggleDrawer }: HeaderProps) {
                         />
                       </div>
                       <p id="headerTittle" style={logoTextStyle}>
-                        {process.env.NEXT_PUBLIC_APPNAME ?? "PG"}
+                        {process.env.NEXT_PUBLIC_APPNAME ?? "SSO MAKIR"}
                       </p>
                     </Row>
                   </Link>
