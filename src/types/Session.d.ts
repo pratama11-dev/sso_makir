@@ -26,10 +26,25 @@ export interface SsoUserRolesPlatformPivot {
 }
 
 export interface Data {
-  user_role: {
-    id?: number
-    role?: string
-  }
+  user_app_role?: {
+    app_role?: {
+      id: number
+      id_app: number
+      role_code: string
+      role_name: string
+      created_at: string
+      created_by: string
+      app: {
+        id: number
+        app_key: string
+        app_name: string
+        base_url: string
+        is_active: boolean
+        created_at: string
+        created_by: string
+      }
+    }
+  }[]
 }
 
 export interface User {

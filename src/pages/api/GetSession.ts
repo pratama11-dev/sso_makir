@@ -18,6 +18,7 @@ export default async function handleSessions(
   const sessionUser = await getSessionFromHeader(ctx.req);
 
   if (sessionUser.code === 0) {
+    console.log("sessionUser", sessionUser);
     // const role = sessionUser?.data?.data?.sso_user_roles_platform_pivot?.find(
     //   (d: any) => d.sso_platforms?.client_id === process.env.NEXT_PUBLIC_CLIENT_ID
     // )?.sso_roles?.roles_name ?? "norole";

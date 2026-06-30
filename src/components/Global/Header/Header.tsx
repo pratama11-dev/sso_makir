@@ -136,7 +136,9 @@ function HeaderOur({ session, toggleDrawer }: HeaderProps) {
                             lineHeight: "15px",
                           }}
                         >
-                          {session?.data?.data?.user_role?.role}
+                          {session?.data?.data?.user_app_role?.filter(
+                            (d) => d.app_role?.app?.app_key === process.env.NEXT_PUBLIC_APPKEY
+                          )[0]?.app_role?.role_name ?? "No Role"}
                         </p>
                       </Col>
                       <Col xs={4} sm={4} md={4} lg={4}>
