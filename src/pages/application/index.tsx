@@ -8,12 +8,11 @@ import { Button, Col, Input, Row, TablePaginationConfig } from "antd";
 import { FilterValue } from "antd/es/table/interface";
 import useDebounce from "@utils/helpers/customHooks/useDebounce";
 import useWindowSize from "@utils/helpers/ReactHelper";
-import ModalDocument from "@components/Document/ModalDocument";
 import { PlusOutlined } from "@ant-design/icons";
 import getUserRole from "@utils/helpers/getUserRoles";
-import UserTable from "@components/Users/TableUsers";
 import { useAppQuery } from "@services/reactQuery/applications";
 import AppTable from "@components/Apps/TableApps";
+import ModalAddUpdateApp from "@components/Apps/ModalAddUpdateApp";
 
 
 const ApplicationsPage = (session: Sessions) => {
@@ -78,6 +77,13 @@ const ApplicationsPage = (session: Sessions) => {
                         setFilters(ft);
                     }}
                     pagination={{ ...paginationTable1, total: dataListApps?.data?.data?.total }}
+                />
+
+                <ModalAddUpdateApp 
+                    session={session}
+                    visible={modal}
+                    setVisible={setModal}
+                    mode="add"
                 />
 
             </DashboardLayout>

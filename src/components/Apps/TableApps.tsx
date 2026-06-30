@@ -13,6 +13,7 @@ import { useQueryClient } from "@tanstack/react-query";
 // import ModalSign from "./ModalSign";
 import { FaSign, FaSignature } from "react-icons/fa";
 import { IApplication } from "types/apps";
+import ModalAddUpdateApp from "./ModalAddUpdateApp";
 
 interface ITableApp {
     session: Sessions | undefined;
@@ -34,25 +35,25 @@ const AppTable = ({
     const uq = useQueryClient();
 
     const [modal, setModal] = useState(false)
-    const [modalSign, setModalSign] = useState(false)
+    // const [modalSign, setModalSign] = useState(false)
     const [selectedData, setSelectedData] = useState<IApplication>()
 
-    const onDelete = async (id: number) => {
-        const data = await FetcherPost({
-            url: "/api/document/delete",
-            api: "API",
-            data: {
-                id
-            }
-        })
-        if (data.status === 200) {
-            showSuccess("Berhasil!", `berhasil menghapus data`)
-            // uq.invalidateQueries(['useDocumentQuery'])
-            await uq.invalidateQueries({
-                queryKey: ["useDocumentQuery"],
-            });
-        }
-    }
+    // const onDelete = async (id: number) => {
+    //     const data = await FetcherPost({
+    //         url: "/api/document/delete",
+    //         api: "API",
+    //         data: {
+    //             id
+    //         }
+    //     })
+    //     if (data.status === 200) {
+    //         showSuccess("Berhasil!", `berhasil menghapus data`)
+    //         // uq.invalidateQueries(['useDocumentQuery'])
+    //         await uq.invalidateQueries({
+    //             queryKey: ["useDocumentQuery"],
+    //         });
+    //     }
+    // }
 
     return (
         <>
@@ -148,10 +149,10 @@ const AppTable = ({
                                 icon={<FaSignature />}
                                 onClick={() => {
                                     setSelectedData(item)
-                                    setModalSign(true)
+                                    // setModalSign(true)
                                 }}
                             />
-                            <Popconfirm
+                            {/* <Popconfirm
                                 title="Delete?"
                                 description="Are you sure to delete this data?"
                                 onConfirm={() => { onDelete(item?.id as number) }}
@@ -163,7 +164,7 @@ const AppTable = ({
                                     icon={<DeleteOutlined rev={""} />}
                                     danger
                                 />
-                            </Popconfirm>
+                            </Popconfirm> */}
                         </>
                     )}
                 />
@@ -176,12 +177,13 @@ const AppTable = ({
                 id_doc={selectedData?.id}
             /> */}
 
-            {/* <ModalDocument
+            <ModalAddUpdateApp
                 session={session}
                 visible={modal}
                 setVisible={setModal}
                 data={selectedData}
-            /> */}
+                mode={selectedData ? "edit" : "add"}
+            />
         </>
     )
 }
