@@ -1,5 +1,12 @@
 import "../styles/globals.css";
 // import "antd/dist/antd.css";
+import {
+  QueryClient,
+  QueryCache,
+  MutationCache,
+  QueryClientProvider
+} from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import type { AppProps } from "next/app";
 import type { NextPage } from "next";
@@ -7,8 +14,7 @@ import type { ReactElement, ReactNode } from "react";
 import NextNProgress from "nextjs-progressbar";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import configureReduxStore from "@redux/store";
 import themeColor from "@configs/theme/themeColor";
 import { showError } from "@utils/helpers/AntdHelper";
@@ -31,8 +37,8 @@ export function handlingError(err: any, handleLogout: () => void) {
     showError(
       "Error!",
       err?.response?.data?.info
-        ?? err?.response?.data?.message
-        ?? "you dont have permissions to access that page!"
+      ?? err?.response?.data?.message
+      ?? "you dont have permissions to access that page!"
     );
     return;
   }
@@ -40,9 +46,9 @@ export function handlingError(err: any, handleLogout: () => void) {
   showError(
     "Error!",
     err?.response?.data?.info
-      ?? err?.response?.data?.message
-      ?? err?.message
-      ?? "Server Error!"
+    ?? err?.response?.data?.message
+    ?? err?.message
+    ?? "Server Error!"
   );
 }
 
@@ -50,21 +56,34 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page: ReactElement | ReactNode) => page);
   const { store, persistor } = configureReduxStore();
   const { handleLogout } = useAuth();
+  // const queryClient = new QueryClient({
+  //   defaultOptions: {
+  //     queries: {
+  //       // handling error
+  //       onError: async (err) => {
+  //         handlingError(err, handleLogout);
+  //       },
+  //     },
+  //     mutations: {
+  //       // handling error
+  //       onError: async (err) => {
+  //         handlingError(err, handleLogout);
+  //       },
+  //     },
+  //   },
+  // });
+
   const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        // handling error
-        onError: async (err) => {
-          handlingError(err, handleLogout);
-        },
+    queryCache: new QueryCache({
+      onError: (err) => {
+        handlingError(err, handleLogout);
       },
-      mutations: {
-        // handling error
-        onError: async (err) => {
-          handlingError(err, handleLogout);
-        },
+    }),
+    mutationCache: new MutationCache({
+      onError: (err) => {
+        handlingError(err, handleLogout);
       },
-    },
+    }),
   });
 
   return getLayout(

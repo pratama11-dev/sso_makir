@@ -1,9 +1,10 @@
-import { applyMiddleware, createStore, compose } from "redux";
-import { persistStore, persistReducer } from "redux-persist";
+import { configureStore } from "@reduxjs/toolkit";
+import { persistReducer, persistStore } from "redux-persist";
 import localForage from "localforage";
-import { createLogger } from "redux-logger";
 import { encryptTransform } from "redux-persist-transform-encrypt";
-import { isClient, isDev } from "@utils/helpers/HelperBrowser";
+import { createLogger } from "redux-logger";
+
+import { isDev } from "@utils/helpers/HelperBrowser";
 import rootReducer from "./reducer";
 
 const persistedReducer = persistReducer(
@@ -12,22 +13,34 @@ const persistedReducer = persistReducer(
     storage: localForage,
     transforms: [
       encryptTransform({
-        secretKey: process?.env?.NEXT_PUBLIC_APPKEY ?? "some-secret",
+        secretKey: process.env.NEXT_PUBLIC_APPKEY ?? "some-secret",
       }),
     ],
   },
   rootReducer
 );
 
-const store = createStore(
-  isClient ? persistedReducer : rootReducer,
-  {},
-  isDev
-    ? compose(applyMiddleware(createLogger({ collapsed: true })))
-    : compose()
-);
+const logger = createLogger({
+  collapsed: true,
+});
 
-const persistor = persistStore(store);
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) => {
+    const middleware = getDefaultMiddleware({
+      serializableCheck: false,
+      immutableCheck: false,
+    });
+
+    return isDev ? middleware.concat(logger) : middleware;
+  },
+  devTools: isDev,
+});
+
+export const persistor = persistStore(store);
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export default function configureReduxStore() {
   return {

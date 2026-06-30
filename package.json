@@ -21,6 +21,7 @@
     "@fullcalendar/react": "^6.1.15",
     "@fullcalendar/timegrid": "^6.1.15",
     "@next/bundle-analyzer": "^16.2.9",
+    "@reduxjs/toolkit": "^2.12.0",
     "@tanstack/eslint-plugin-query": "^4.34.1",
     "@tanstack/react-query": "^5.101.1",
     "@tanstack/react-query-devtools": "^5.101.1",

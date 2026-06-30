@@ -8,7 +8,6 @@ import { Button, Col, Input, Row, TablePaginationConfig } from "antd";
 import { FilterValue } from "antd/es/table/interface";
 import useDebounce from "@utils/helpers/customHooks/useDebounce";
 import useWindowSize from "@utils/helpers/ReactHelper";
-import ModalDocument from "@components/Document/ModalDocument";
 import { PlusOutlined } from "@ant-design/icons";
 import getUserRole from "@utils/helpers/getUserRoles";
 import { useUserQuery } from "@services/reactQuery/users";
