@@ -8,8 +8,8 @@ let matchMedia: MatchMediaMock;
 describe("Home", () => {
   beforeAll(() => {
     matchMedia = new MatchMediaMock();
-    jest.spyOn(console, "warn").mockImplementation(() => {});
-    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "warn").mockImplementation(() => { });
+    jest.spyOn(console, "error").mockImplementation(() => { });
   });
 
   afterEach(() => {
@@ -17,17 +17,32 @@ describe("Home", () => {
   });
 
   it("Renders a Header Without Session", () => {
-    const HeaderComp = render(<Header session={{ code: -1 }} />);
-    const headerLoginCTA = HeaderComp.container.querySelector("#login-CTA")?.innerHTML;
+    const HeaderComp = render(
+      <Header
+        session={{ code: -1 }}
+        toggleDrawer={jest.fn()}
+      />
+    );
+
+    const headerLoginCTA =
+      HeaderComp.container.querySelector("#login-CTA")?.innerHTML;
+
     expect(headerLoginCTA).toBe("Sign In");
   });
 
   it("Renders a Header With Session", () => {
     const name = "test root";
+
     const HeaderComp = render(
-      <Header session={{ code: 0, data: { user: { name } } }} />
+      <Header
+        session={{ code: 0, data: { user: { name } } }}
+        toggleDrawer={jest.fn()}
+      />
     );
-    const headerUser = HeaderComp.container.querySelector("#headerPeopleName")?.innerHTML;
+
+    const headerUser =
+      HeaderComp.container.querySelector("#headerPeopleName")?.innerHTML;
+
     expect(headerUser).toBe(name);
   });
 });
