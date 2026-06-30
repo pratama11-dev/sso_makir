@@ -2,7 +2,7 @@ import { BarChartOutlined, HomeOutlined, OrderedListOutlined } from "@ant-design
 import { routesType } from "types/Sidebar";
 import { MdOutlineDocumentScanner, MdOutlinePayments } from "react-icons/md";
 import { SlNotebook } from "react-icons/sl";
-import { FaAppStore, FaTicketAlt, FaUser } from "react-icons/fa";
+import { FaAppStore, FaAtom, FaTicketAlt, FaUser } from "react-icons/fa";
 
 // eslint-disable-next-line import/prefer-default-export
 
@@ -20,6 +20,13 @@ export const AdminRoutes: routesType = [
     key: "application",
     name: "Apps",
     icon: <FaAppStore />,
+    children: [],
+  },
+  {
+    path: "/app-role",
+    key: "app-role",
+    name: "App Roles",
+    icon: <FaAtom />,
     children: [],
   },
   {
